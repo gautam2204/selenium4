@@ -1,7 +1,8 @@
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v96.emulation.Emulation;
+import org.openqa.selenium.devtools.v117.emulation.Emulation;
+//import org.openqa.selenium.devtools.v96.emulation.Emulation;
 
 import java.util.Optional;
 

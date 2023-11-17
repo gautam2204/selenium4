@@ -1,7 +1,7 @@
 package getDriverCFT;
 
 import com.jayway.jsonpath.JsonPath;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -39,7 +39,7 @@ public class GetDriverANdChrome {
     }
 
     String cftVersion = properties.getProperty("cft");
-    String version;
+    String version = null;
     if (StringUtils.containsIgnoreCase(cftVersion, "latest")
         || StringUtils.containsIgnoreCase(cftVersion, "") && StringUtils.isNotEmpty(cftVersion)) {
 
@@ -53,9 +53,10 @@ public class GetDriverANdChrome {
         e.printStackTrace();
       }
       version = JsonPath.read(cft_version_response, "$.channels.Stable.version");
-    } else {
+    } else if (StringUtils.isNotEmpty(cftVersion)){
       version = cftVersion;
     }
+
     System.out.println(version);
     String chromeDownloadUrl =
         "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/"

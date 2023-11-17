@@ -17,7 +17,7 @@
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
-        <version>4.1.1</version>
+        <version>4.13.0</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
@@ -30,7 +30,7 @@
     <dependency>
         <groupId>io.github.bonigarcia</groupId>
         <artifactId>webdrivermanager</artifactId>
-        <version>5.0.3</version>
+        <version>5.6.2</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
     <dependency>
