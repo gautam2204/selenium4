@@ -4,14 +4,19 @@ import org.checkerframework.checker.units.qual.A;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.v117.network.Network;
+import org.openqa.selenium.devtools.v117.network.model.Request;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class getNetworkCalls {
 
@@ -40,8 +45,9 @@ public class getNetworkCalls {
 
     driver = new ChromeDriver(chromeDriverService, options);
 
-//    devtool = ((ChromeDriver) driver).getDevTools();
+    devtool = ((ChromeDriver) driver).getDevTools();
         }
+
 
     @After
     public void close()
@@ -57,7 +63,21 @@ public class getNetworkCalls {
     @Test
     public void test_get_requestsLogs()
     {
+        devtool.createSession();
+        devtool.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+        ArrayList<Request> requests = new ArrayList<>();
+
+    devtool.addListener(
+        Network.requestWillBeSent(),
+        entry -> {
+          requests.add(entry.getRequest());
+          System.out.println("Log request "+entry.getRequest().getUrl());
+        });
+
         launchApp("https://auth.tiaa.org/public/authentication/forgotpassword");
+        driver.findElement(By.cssSelector("#tiaa-userId")).sendKeys("Hello");
+        driver.findElement(By.cssSelector("button#forgotpasswordnextid")).click();
+        requests.forEach(e -> System.out.println(e.toString()));
     }
 
 }
