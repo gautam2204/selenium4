@@ -13,6 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,24 +102,30 @@ public class Sel4CasesForDependencyTest {
   }
 
   @Test
-  public void checkMergeMethodTest() throws InterruptedException, IOException {
-    ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.setBinary("src/test/driver/chrome-win64/chrome.exe");
+  public void checkMergeMethod_addDesiredCapsToOptionsTest()
+      throws InterruptedException, IOException {
+    ChromeOptions chromeOptionsFinal = new ChromeOptions();
+    chromeOptionsFinal.setBinary("src/test/driver/chrome-win64/chrome.exe");
+    chromeOptionsFinal.setPageLoadTimeout(Duration.ofSeconds(10));
 
     ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
 
-    Map<String, String> mobileEmulation = new HashMap<>();
-    mobileEmulation.put("deviceName", "Nexus 5");
-
-    //    chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+    Map<String, String> mobileEmulationCapabil = new HashMap<>();
+    mobileEmulationCapabil.put("deviceName", "iPhone 4");
 
     DesiredCapabilities desiredCapabilities1 = new DesiredCapabilities();
-    desiredCapabilities1.setCapability("setWindowRect", "fullscreen");
+    desiredCapabilities1.setAcceptInsecureCerts(true);
+    //    desiredCapabilities1.setCapability("setWindowRect", "fullscreen");
+    //
+    chromeOptionsFinal.setCapability(ChromeOptions.CAPABILITY, desiredCapabilities1);
+    // ExperimentalOptions are one's which are not yet exposed via chromium
+    chromeOptionsFinal.setExperimentalOption("mobileEmulation", mobileEmulationCapabil);
+    //    chromeOptions1.merge(chromeOptions1."debuggerAddress","127.0.0.1:38947");
+    //    chromeOptions1.setCapability(map);
 
-    ChromeOptions chromeOptions1 = new ChromeOptions();
-    chromeOptions1.setCapability(ChromeOptions.CAPABILITY, desiredCapabilities1);
+    chromeOptionsFinal.merge(desiredCapabilities1);
 
-    ChromeOptions mergeAllOPtionsAndCaps = chromeOptions.merge(chromeOptions1);
+    ChromeOptions mergeAllOPtionsAndCaps = chromeOptionsFinal.merge(chromeOptionsFinal);
     System.out.println(mergeAllOPtionsAndCaps);
 
     WebDriver driver = new ChromeDriver(chromeDriverService, mergeAllOPtionsAndCaps);
@@ -126,33 +133,7 @@ public class Sel4CasesForDependencyTest {
     driver.navigate().to("https://phptravels.com/");
     System.out.println(driver.getTitle());
     driver.getWindowHandle();
-    BrowsingContext browsingContext = new BrowsingContext(driver, WindowType.WINDOW);
-    browsingContext.getId();
   }
 
-  @Test
-  public void AddDesiredCapability() throws InterruptedException, IOException {
-    ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.setBinary("src/test/driver/chrome-win64/chrome.exe");
-    ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
-    Map<String, String> mobileEmulation = new HashMap<>();
 
-    mobileEmulation.put("deviceName", "Nexus 5");
-//    HashMap<Object, Object> mobileEmulationCaps = new HashMap<>();
-//    mobileEmulationCaps.put("mobileEmulation", mobileEmulation);
-
-    DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-    desiredCapabilities.setCapability("pageLoadStrategy", "eager");
-    desiredCapabilities.setCapability("strictFileInteractability", true);
-
-    chromeOptions.setCapability(ChromeOptions.CAPABILITY,desiredCapabilities);
-    chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
-
-
-
-    WebDriver driver = new ChromeDriver(chromeDriverService, chromeOptions);
-
-    driver.navigate().to("https://phptravels.com/");
-    System.out.println(driver.getTitle());
-  }
 }
