@@ -1,0 +1,9 @@
+{
+    browserName: chrome,
+    goog:chromeOptions: {      args: [--remote-allow-origins=*]
+                             , binary: src/test/driver/chrome-win6...
+                             , extensions: []
+                             , mobileEmulation: {deviceName: Nexus 5}}
+    , pageLoadStrategy: eager
+    , strictFileInteractability: true
+}

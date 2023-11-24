@@ -1,4 +1,4 @@
-package cdpRevision;
+package bidi;
 
 import org.checkerframework.checker.units.qual.A;
 import org.junit.After;
@@ -41,7 +41,7 @@ public class getNetworkCalls {
     options = new ChromeOptions();
     options.setBinary("src/test/driver/chrome-win64/chrome.exe");
     ChromeDriverService chromeDriverService =
-        new ChromeDriverService.Builder().withLogFile(new File("src/test/java/cdpRevision/logLocation.log")).build();
+        new ChromeDriverService.Builder().withLogFile(new File("./ogLocation.log")).build();
 
     driver = new ChromeDriver(chromeDriverService, options);
 

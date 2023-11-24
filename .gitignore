@@ -4,7 +4,7 @@
 ### Java ###
 # Compiled class file
 *.class
-
+*.exe
 # Log file
 *.log
 
@@ -48,3 +48,4 @@ buildNumber.properties
 test/driver
 # End of https://www.toptal.com/developers/gitignteore/api/java,maven
 /src/test/driver/
+/src/test/java/killChromeDriver.bat
