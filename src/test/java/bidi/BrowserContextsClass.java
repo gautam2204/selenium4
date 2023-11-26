@@ -12,14 +12,16 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class BrowserContextsClass extends BaseClass {
-  private static Logger LOGGER = LoggerFactory.getLogger(BrowserContextsClass.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(BrowserContextsClass.class);
 
-  private WebDriver chromeDriver;
+  private WebDriver driver;
 
   @Test
   public void test_BrowsingContext() throws IOException {
-    chromeDriver = startChromedriver();
-    BrowsingContext browsingContext = new BrowsingContext(chromeDriver, WindowType.WINDOW);
+    this.driver = startChromedriver();
+    driver.navigate().to("https://phptravels.com/");
+    String parentBrowserContext = driver.getWindowHandle();
+    BrowsingContext browsingContext = new BrowsingContext(driver,parentBrowserContext);
     LOGGER.info("Browsing context id ::"+browsingContext.getId());
       Assert.assertTrue(StringUtils.isNotEmpty(browsingContext.getId()));
   }

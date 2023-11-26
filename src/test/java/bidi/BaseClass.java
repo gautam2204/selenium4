@@ -31,6 +31,7 @@ public class BaseClass {
         LOGGER.info("currentPath = "+ currentPath);
         chromeOptions.setBinary("src/test/driver/chrome-win64/chrome.exe");
         builder.withLogFile(new File(currentPath+"/TestLatest.log"));
+        chromeOptions.setCapability("webSocketUrl", true);
         return new ChromeDriver(builder.build(),chromeOptions);
 
     }

@@ -129,7 +129,6 @@ public class Sel4CasesForDependencyTest {
     System.out.println(mergeAllOPtionsAndCaps);
 
     WebDriver driver = new ChromeDriver(chromeDriverService, mergeAllOPtionsAndCaps);
-    //    ChromeDriver driver = new ChromeDriver(chromeDriverService, chromeOptions);
     driver.navigate().to("https://phptravels.com/");
     System.out.println(driver.getTitle());
     driver.getWindowHandle();
