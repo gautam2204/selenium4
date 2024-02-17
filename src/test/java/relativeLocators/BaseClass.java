@@ -72,6 +72,7 @@ return new ChromeDriver();
     private ChromeDriver setChromeDriver(ChromeOptions chromeOptions, ChromeDriverService.Builder builder) {
         File logFilePath = new File(getPath(logsPath));
         LOGGER.info("currentPath = "+ logFilePath);
+        chromeOptions.addArguments("--start-maximized");
         chromeOptions.setBinary("src/test/driver/chrome-win64/chrome.exe");
         builder.withLogFile(new File(String.valueOf(logFilePath)));
         return new ChromeDriver(builder.build(),chromeOptions);
@@ -88,8 +89,9 @@ return new ChromeDriver();
             case CLICKABLE:
                 wait.until(ExpectedConditions.elementToBeClickable(elm));
                 break;
-            case DISPLAYED:
-                wait.until(ExpectedConditions.elementToBeSelected(elm));
+            case DISPLAYED_NOT_CLICKABLE:
+                wait.until(ExpectedConditions.visibilityOf(elm));
+                wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(elm)));
                 break;
             default:
         LOGGER.info("Add the condtion");
