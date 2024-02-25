@@ -7,8 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.Command;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v117.performance.Performance;
-import org.openqa.selenium.devtools.v117.performance.model.Metric;
+import org.openqa.selenium.devtools.v121.performance.Performance;
+import org.openqa.selenium.devtools.v121.performance.model.Metric;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
